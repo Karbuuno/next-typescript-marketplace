@@ -1,23 +1,19 @@
+"use client";
 import Link from "next/link";
 import { MdOutlineEmail, MdOutlineFavoriteBorder } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Menu from "./Menu";
 import SearchBar from "./SearchBar";
 
-// import NavIcons from "./NavIcons";
+import { signIn } from "next-auth/react";
+import { Session } from "next-auth";
+import Image from "next/image";
 
-// const NavIcons = dynamic(() => import("./NavIcons"), { ssr: false });
-const user = false;
-
-const Navbar = () => {
+const Navbar = ({ session }: { session: Session }) => {
   return (
     <div className='h-20 w-full  border-b-cyan-700 bg-gray-200 '>
-      {/* MOBILE */}
-      <div className='h-full flex items-center justify-between sm:hidden'>
-        <Menu />
-      </div>
       {/* BIGGER SCREENS */}
-      <div className='hidden md:flex items-center justify-between  space-x-8 h-full container mx-auto  '>
+      <div className='flex items-center justify-between  gap-4 px-6 h-full mx-auto  '>
         {/* LEFT */}
         <div className=' flex items-center gap-24'>
           <Link href='/' className='flex items-center gap-3'>
@@ -25,20 +21,24 @@ const Navbar = () => {
           </Link>
 
           {/* RIGHT */}
-          <div className='flex items-center justify-between gap-16'>
+        </div>
+        <div className='flex justify-between items-center '>
+          <div className='hidden lg:flex items-center justify-between gap-6 '>
             <SearchBar />
           </div>
-        </div>
-        <div className='flex justify-between items-center gap-16 mx-auto'>
-          <div className='flex gap-4 *: text-4xl '>
-            {user ? (
-              <div className='flex gap-4 *: text-4xl '>
+          <div className='flex justify-between items-center gap-4 px-4'>
+            {session?.user ? (
+              <div className='flex justify-between items-center gap-4 *: text-4xl '>
                 <MdOutlineEmail className='text-gray-400 ' />
                 <IoIosNotificationsOutline className='text-gray-400 ' />
                 <MdOutlineFavoriteBorder className='text-gray-400 ' />
-                <div className='w-8 h-8 rounded-full ring-1 bg-purple-900 text-white text-center text-lg'>
-                  A
-                </div>
+                <Image
+                  src={session?.user?.image}
+                  atl='avatar'
+                  width={40}
+                  height={30}
+                  className='rounded-full'
+                />
               </div>
             ) : (
               <div className='h-10 flex items-center gap-2 bg-white shadow-md text-xl rounded-md border-teal-700 '>
@@ -46,7 +46,10 @@ const Navbar = () => {
                   Sing Up
                 </button>
                 <span className='bg-gray-300 w-[2px] h-5'></span>
-                <button className='text-teal-700 text-center  w-[100px]'>
+                <button
+                  className='text-teal-700 text-center  w-[100px]'
+                  onClick={() => signIn("google")}
+                >
                   Log In
                 </button>
               </div>
@@ -55,6 +58,9 @@ const Navbar = () => {
             <button className='h-10 w-[100px] bg-teal-700 text-lg text-white rounded-md'>
               Sell New
             </button>
+          </div>
+          <div className=' lg:hidden'>
+            <Menu />
           </div>
         </div>
       </div>
