@@ -12,7 +12,7 @@ import Image from "next/image";
 const Navbar = ({ session }: { session: Session }) => {
   return (
     <div className='flex flex-col'>
-      <div className='h-20 w-full  border-b-cyan-700 bg-gray-200 '>
+      <div className='h-20 w-full border  border-b-gray-300 bg-white '>
         {/* BIGGER SCREENS */}
         <div className='flex items-center justify-between  gap-4 px-6 h-full mx-auto  '>
           {/* LEFT */}
@@ -23,10 +23,10 @@ const Navbar = ({ session }: { session: Session }) => {
 
             {/* RIGHT */}
           </div>
+          <div className='hidden lg:flex items-center justify-between gap-6 '>
+            <SearchBar />
+          </div>
           <div className='flex justify-between items-center '>
-            <div className='hidden lg:flex items-center justify-between gap-6 '>
-              <SearchBar />
-            </div>
             <div className='flex justify-between items-center gap-4 px-4'>
               {session?.user ? (
                 <div className='flex justify-between items-center gap-4 *: text-4xl *: cursor-pointer '>
@@ -60,13 +60,13 @@ const Navbar = ({ session }: { session: Session }) => {
                 Sell New
               </button>
             </div>
-            <div className=' lg:hidden bg-gray-200'>
+            <div className=' lg:hidden'>
               <Menu />
             </div>
           </div>
         </div>
       </div>
-      <div className='h-20 w-full  border-b-cyan-700 bg-gray-200 lg:hidden '>
+      <div className='h-20 w-full  border  border-b-gray-300 bg-white lg:hidden '>
         <div className='mx-16 mt-4 '>
           <SearchBar />
         </div>
