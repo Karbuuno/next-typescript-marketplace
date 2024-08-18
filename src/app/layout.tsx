@@ -4,7 +4,10 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import { getServerSession, Session } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
-import NextAuthProvider from "./providres/NextAuthProvider";
+import NextAuthProvider from "./providers/NextAuthProvider";
+import ReactQueryClientProvider from "./providers/ReactQueryClientProvider";
+import ToastProvider from "./providers/ToastProvider";
+// import NextAuthProvider from "./providers/NextAuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,10 +26,13 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <NextAuthProvider>
-          <Navbar  />
-          {children}
-        </NextAuthProvider>
+        <ReactQueryClientProvider>
+          <NextAuthProvider>
+            <Navbar />
+            {children}
+            <ToastProvider />
+          </NextAuthProvider>
+        </ReactQueryClientProvider>
       </body>
     </html>
   );

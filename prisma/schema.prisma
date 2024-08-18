@@ -64,3 +64,25 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+model Category {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product Product[]
+}
+
+model Product {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  categoryId    String      @db.ObjectId
+  category      Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  thumbnail     String
+  gallery       String[]
+  price         Float
+  description   String
+  status        String      @default("visible")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  
+}

@@ -18,7 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { Card, CardTitle } from "@/components/ui/card";
+
 import {
   Form,
   FormControl,
@@ -39,7 +39,7 @@ const formSchema = z.object({
 });
 
 const LoginForm = () => {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,19 +49,25 @@ const LoginForm = () => {
     },
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      const response: any = await signIn("Credentials", {
-        ...values,
-        redirect: false,
-      });
-      console.log({ response });
-      if (!response?.error) {
-        router.push("/Dashboard");
-        router.refresh();
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    console.log(values);
+    signIn("Credentials", {
+      values,
+      redirect: false,
+    });
+    // try {
+    //   const response: any = await signIn("Credentials", {
+    //     values,
+    //     redirect: false,
+    //     callbackUrl: `${window.location.origin}`,
+    //   });
+    //   console.log({ response });
+    //   if (!response?.error) {
+    //     router.push("/dashboard/user");
+    //     router.refresh();
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   return (
     <Dialog>
@@ -121,8 +127,12 @@ const LoginForm = () => {
             </Button>
           </form>
         </Form>
-        <Button className='bg-gray-500' onClick={() => signIn("google")}>
-          Sign in With Google
+        <Button
+          onClick={() => signIn("google")}
+          className='w-full space-x-2 bg-gray-400'
+        >
+          <FcGoogle className='w-5 h-5' />
+          <span>Continue With Google</span>
         </Button>
         <p className='mt-10 text-center text-sm text-gray-500'>
           Not a member?{" "}

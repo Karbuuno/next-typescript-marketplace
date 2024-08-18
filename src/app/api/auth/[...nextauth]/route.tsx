@@ -3,11 +3,10 @@ import GoogleProvider from "next-auth/providers/google";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
-import prisma from "../../../lib/prismaClient";
+import prisma from "../../../../../prisma/prismaClient";
 import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
-  secret: process.env.SECRET as string,
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -20,7 +19,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "text", placeholder: "Your Email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         console.log("authorize", credentials);
         // check to see if email and password is there
         if (!credentials?.email || !credentials.password) {
@@ -55,10 +54,29 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    jwt: async ({ token }) => {
+      const userInfo = await prisma.user.findFirst({
+        where: { email: token.email },
+      });
+
+      if (userInfo) {
+        userInfo.emailVerified = undefined!;
+        userInfo.hashedPassword = undefined!;
+      }
+      token.user = userInfo;
+      return token;
+    },
+    session: async ({ session, token }) => {
+      session.user = token.user!;
+      return session;
+    },
+  },
 
   session: {
     strategy: "jwt",
   },
+  secret: process.env.SECRET as string,
 };
 
 const handler = NextAuth(authOptions);

@@ -17,6 +17,7 @@ import { useSession } from "next-auth/react";
 const Navbar = () => {
   const { data: session } = useSession();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  console.log(session);
 
   return (
     <div className='flex flex-col'>
