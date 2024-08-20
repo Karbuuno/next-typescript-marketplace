@@ -51,7 +51,7 @@ export const columns: ColumnDef<Category>[] = [
       const router = useRouter();
 
       return (
-        <div className='space-x-4 ml-6'>
+        <div className='space-x-4 ml-6 '>
           <Button
             className='bg-gray-300 hover:bg-gray-500'
             onClick={() =>

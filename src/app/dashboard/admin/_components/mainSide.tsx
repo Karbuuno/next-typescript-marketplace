@@ -1,15 +1,23 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import CategoryList from "../(pages)/category/_compnents/categoryList";
 
 import { Button } from "@/components/ui/button";
 import Header from "@/components/ui/Header";
+import { useRouter } from "next/navigation";
 
 const MainSide = () => {
+  const router = useRouter();
   return (
     <main className='flex  flex-col gap-4 p-2 lg:gap-6 lg:p-6'>
       <div className='flex items-center'>
-        <Button className='text-sm  md:text-xl'>Create Category</Button>
+        <Button
+          className='text-sm  md:text-xl'
+          onClick={() => router.push("/dashboard/admin/category/new")}
+        >
+          Create Category
+        </Button>
       </div>
       <div
         className='flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm'
