@@ -7,7 +7,8 @@ import { Button } from "./button";
 import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import routes from "@/app/dashboard/admin/_components/SidebarRoutes";
+import routes from "./SidebarRoutes";
+
 const SideBar = () => {
   // pathname
   const pathName = usePathname();

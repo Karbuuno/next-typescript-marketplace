@@ -8,6 +8,7 @@ const AdminPage = () => {
     <main className=''>
       <Products />
       <CategoriesPage />
+
       <Customers />
     </main>
   );

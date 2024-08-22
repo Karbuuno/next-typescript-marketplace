@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 const formSchema = z.object({
   email: z.string().email({ message: "Email is required" }),
 
@@ -50,10 +51,17 @@ const LoginForm = () => {
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
-    signIn("Credentials", {
+    const res = await signIn("credentials", {
       values,
       redirect: false,
     });
+    console.log(res);
+    if (res?.ok) {
+      toast.success("successfully signed");
+      window.location.assign("/");
+    } else {
+      toast.error(res?.error as string);
+    }
     // try {
     //   const response: any = await signIn("Credentials", {
     //     values,

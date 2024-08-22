@@ -1,13 +1,4 @@
-import {
-  Home,
-  LineChart,
-  LucideIcon,
-  Menu,
-  Package,
-  Package2,
-  ShoppingCart,
-  Users,
-} from "lucide-react";
+import { Menu, Package2 } from "lucide-react";
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "./sheet";
 import { Button } from "./button";
@@ -19,9 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./card";
-import { Badge } from "./badge";
-import routes from "@/app/dashboard/admin/_components/SidebarRoutes";
-// import routes from "";
+import routes from "./SidebarRoutes";
 
 const MobileSidebar = () => {
   return (

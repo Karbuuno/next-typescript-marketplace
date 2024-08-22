@@ -14,15 +14,15 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
-      name: "Credentials",
+      name: "credentials",
       credentials: {
         email: { label: "Email", type: "text", placeholder: "Your Email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log("authorize", credentials);
+        console.log(credentials);
         // check to see if email and password is there
-        if (!credentials?.email || !credentials.password) {
+        if (!credentials?.email || !credentials?.password) {
           // throw new Error('Please enter an email and password')
           return null;
         }
@@ -33,6 +33,7 @@ export const authOptions: NextAuthOptions = {
             email: credentials.email,
           },
         });
+        console.log(user);
 
         // if no user was found
         if (!user || !user?.hashedPassword) {

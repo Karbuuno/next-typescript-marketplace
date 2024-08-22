@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client-js"
@@ -69,6 +65,16 @@ model Category {
   name    String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  SubCategory Subcategory[]
+  Product Product[]
+}
+model Subcategory {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  categoryId    String      @db.ObjectId
+  category      Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   Product Product[]
 }
 
@@ -77,6 +83,8 @@ model Product {
   name          String
   categoryId    String      @db.ObjectId
   category      Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  subcategoryId    String      @db.ObjectId
+  subCategory      Subcategory    @relation(fields: [subcategoryId], references: [id], onDelete: Cascade)
   thumbnail     String
   gallery       String[]
   price         Float

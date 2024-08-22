@@ -20,12 +20,18 @@ const routes = [
   },
   {
     id: 3,
+    icon: Package2,
+    label: "Subcategory",
+    href: "/subcategory",
+  },
+  {
+    id: 4,
     icon: User2Icon,
     label: "Users",
     href: "/users",
   },
   {
-    id: 4,
+    id: 5,
     icon: ShoppingCartIcon,
     label: "Orders",
     href: "/orders",

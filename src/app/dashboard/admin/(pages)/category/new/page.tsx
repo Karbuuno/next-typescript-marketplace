@@ -4,7 +4,7 @@ import CategoryForm from "../_compnents/categoryForm";
 const NewCategory = () => {
   return (
     <div>
-      <CategoryForm />
+      <CategoryForm  />
     </div>
   );
 };
