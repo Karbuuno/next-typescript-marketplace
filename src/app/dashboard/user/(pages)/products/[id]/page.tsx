@@ -1,5 +1,5 @@
 import React from "react";
-import SubcategoryForm from "../_compnents/subcategoryForm";
+import SubcategoryForm from "../_compnents/productsForm";
 import { notFound } from "next/navigation";
 
 const UpdateSubcategory = async ({ params }: { params: { id: string } }) => {

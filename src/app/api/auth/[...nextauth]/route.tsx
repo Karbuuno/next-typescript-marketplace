@@ -14,10 +14,15 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
-      name: "credentials",
+      name: "Credentials",
+      // credentials: {
+      //   email: { label: "Email", type: "text", placeholder: "Your Email" },
+      //   password: { label: "Password", type: "password" },
+      // },
+
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "Your Email" },
-        password: { label: "Password", type: "password" },
+        email: {},
+        password: {},
       },
       async authorize(credentials) {
         console.log(credentials);

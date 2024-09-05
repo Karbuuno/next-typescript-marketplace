@@ -13,11 +13,21 @@ import Profile from "./Profile";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { useSession } from "next-auth/react";
+import { useQuery } from "@tanstack/react-query";
+import { Category } from "@prisma/client";
+import axios from "axios";
+import { API } from "@/lib/config";
 
 const Navbar = () => {
   const { data: session } = useSession();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  console.log(session);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const { data, isError, isLoading } = useQuery<Category[]>({
+    queryKey: ["category"],
+    queryFn: () => axios.get(`${API}/admin/category`).then(res => res.data),
+    staleTime: 60 * 1000,
+    retry: 3,
+  });
 
   return (
     <div className='flex flex-col'>
@@ -62,12 +72,10 @@ const Navbar = () => {
                 </div>
               )}
 
-              <button className='h-10 w-[100px] bg-teal-700 text-lg text-white rounded-md'>
+              <button className='hidden lg:flex justify-center items-center h-10 w-[100px] bg-teal-700 text-lg text-white rounded-md'>
                 Sell New
               </button>
-            </div>
-            <div className=' lg:hidden'>
-              <Menu />
+              <Menu data={data} />
             </div>
           </div>
         </div>
@@ -75,6 +83,22 @@ const Navbar = () => {
       <div className='h-20 w-full  border  border-b-gray-300 bg-white lg:hidden '>
         <div className='mx-16 mt-4 '>
           <SearchBar />
+        </div>
+        <div className='hidden lg:flex h-20 w-full border  border-b-gray-300 bg-white '>
+          <div className='flex px-10  '>
+            {data?.map(category => (
+              <div
+                key={category.id}
+                className='flex items-center hover:bg-slate-100 px-6  '
+              >
+                <ul className='flex  cursor-pointer'>
+                  <li className=' capitalize text-xl text-gray-500'>
+                    {category?.name}
+                  </li>
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

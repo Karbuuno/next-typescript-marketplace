@@ -65,7 +65,7 @@ model Category {
   name    String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  SubCategory Subcategory[]
+  Subcategory Subcategory[]
   Product Product[]
 }
 model Subcategory {
@@ -84,7 +84,12 @@ model Product {
   categoryId    String      @db.ObjectId
   category      Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   subcategoryId    String      @db.ObjectId
-  subCategory      Subcategory    @relation(fields: [subcategoryId], references: [id], onDelete: Cascade)
+  subcategory      Subcategory    @relation(fields: [subcategoryId], references: [id], onDelete: Cascade)
+  color        String
+  brand        String
+  size       String
+  condition String
+  location String
   thumbnail     String
   gallery       String[]
   price         Float

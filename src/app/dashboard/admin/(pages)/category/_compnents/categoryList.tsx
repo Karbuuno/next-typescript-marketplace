@@ -18,6 +18,7 @@ const CategoryList = () => {
     staleTime: 60 * 1000,
     retry: 3,
   });
+  console.log(data);
 
   return (
     <main className='flex  flex-col gap-4 p-2 lg:gap-6 lg:p-6'>

@@ -1,5 +1,5 @@
 import React from "react";
-import SubCategoryForm from "../_compnents/subcategoryForm";
+import SubCategoryForm from "../_compnents/productsForm";
 
 const SubNewCategory = () => {
   return (

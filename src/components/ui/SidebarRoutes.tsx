@@ -1,10 +1,4 @@
-import {
-  CarrotIcon,
-  Package,
-  Package2,
-  ShoppingCartIcon,
-  User2Icon,
-} from "lucide-react";
+import { Package, Package2, ShoppingCartIcon, User2Icon } from "lucide-react";
 const routes = [
   {
     id: 1,

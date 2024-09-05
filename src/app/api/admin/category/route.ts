@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
   // get all categories
 
   const categories = await prisma.category.findMany({
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: "asc" },
   });
   return NextResponse.json(categories, { status: 200 });
 }
