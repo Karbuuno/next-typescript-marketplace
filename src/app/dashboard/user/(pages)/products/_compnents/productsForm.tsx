@@ -24,27 +24,35 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 import { Loader2, Trash, Upload } from "lucide-react";
-
-import ProductIdSelect from "./categoryIdSelect";
-import { Product } from "@prisma/client";
+import { Product, Session } from "@prisma/client";
 import { productSchema } from "@/validationSchema/productSchema";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import UploadImage from "../UploadImages";
+
 import { useState } from "react";
 import CategoryIdSelect from "./categoryIdSelect";
 import { useDropzone } from "react-dropzone";
 import { SubcategoryIdSelect } from "./categoryIdSelect";
-import { error } from "console";
+import { useSession } from "next-auth/react";
 interface FileWithPreview extends File {
   preview: string;
+}
+interface sessionData {
+  id: string;
+  name: string;
+  image: string;
+  email: string;
+  role: string;
 }
 
 const ProductForm = ({ product }: { product?: Product }) => {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
+  const { data: session } = useSession();
+  console.log(session);
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
+      // sellerId: session?.user.id,
       name: product?.name,
       color: product?.color,
       brand: product?.brand,
@@ -106,7 +114,10 @@ const ProductForm = ({ product }: { product?: Product }) => {
         formData.append("newImages", base64);
       }
 
-      await axios.post(`${API}/user/product`, formData);
+      // console.log("form data", JSON.stringify(formData));
+
+      // return;
+      await axios.post(`${API}/user/products`, formData);
 
       queryClient.invalidateQueries({ queryKey: ["product"] });
 

@@ -1,11 +1,10 @@
 import React from "react";
-import ProductsPage from "./(pages)/products/page";
 
-const UserLayout = () => {
+const UserLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
-      <ProductsPage />
-    </div>
+    <main>
+      <div>{children}</div>
+    </main>
   );
 };
 

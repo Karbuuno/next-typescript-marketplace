@@ -20,6 +20,7 @@ export const productSchema = z.object({
   condition: z.string().min(1, "location is required.").max(500).optional(),
   location: z.string().min(1, "location is required.").max(500).optional(),
   categoryId: z.string().min(1, "categoryId is required.").max(500),
+  sellerId: z.string().min(1, "categoryId is required.").max(500).optional(),
   subcategoryId: z
     .string()
     .min(1, "subcategoryId is required.")

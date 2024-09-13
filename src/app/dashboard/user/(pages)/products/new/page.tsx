@@ -1,12 +1,13 @@
 import React from "react";
-import SubCategoryForm from "../_compnents/productsForm";
 
-const SubNewCategory = () => {
+import ProductForm from "../_compnents/productsForm";
+
+const NewProduct = () => {
   return (
     <div>
-      <SubCategoryForm />
+      <ProductForm />
     </div>
   );
 };
 
-export default SubNewCategory;
+export default NewProduct;

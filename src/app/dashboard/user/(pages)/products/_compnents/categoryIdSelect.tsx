@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -10,13 +10,9 @@ import {
 import { Control, Controller } from "react-hook-form";
 import { FormItem, FormLabel } from "@/components/ui/form";
 import axios from "axios";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { API } from "@/lib/config";
 import { Category, Subcategory } from "@prisma/client";
-import { Button } from "@/components/ui/button";
-import { SelectCategory } from "./selectCtegory";
-import { ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 interface CategoryIdSelect {
   control: Control<any>;

@@ -1,10 +1,13 @@
+import { getServerSession, Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { productSchema } from "./../../../../validationSchema/productSchema";
+import { productSchema } from "../../../../validationSchema/productSchema";
 
 import prisma from "../../../../../prisma/prismaClient";
 import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 import { v4 as uuidv4 } from "uuid";
+import { useSession } from "next-auth/react";
+import { authOptions } from "../../auth/[...nextauth]/route";
 interface FieldsValue {
   [key: string]: string;
 }
@@ -46,6 +49,10 @@ export async function POST(req: NextRequest) {
   //     { status: 400 }
   //   );
   // }
+
+  const session = await getServerSession(authOptions);
+  if (!session) return NextResponse.json({}, { status: 401 });
+
   const formData = await req.formData();
   const fields: FieldsValue = {};
   const base64Images = [];
@@ -69,6 +76,8 @@ export async function POST(req: NextRequest) {
   try {
     const newProduct = await prisma?.product.create({
       data: {
+        // sellerId: session.user.id,
+        sellerId: session.user.id,
         name: fields.name,
         color: fields.color,
         brand: fields.brand,

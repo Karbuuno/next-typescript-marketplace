@@ -17,11 +17,14 @@ import { useQuery } from "@tanstack/react-query";
 import { Category } from "@prisma/client";
 import axios from "axios";
 import { API } from "@/lib/config";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   const { data: session } = useSession();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const router = useRouter();
   const { data, isError, isLoading } = useQuery<Category[]>({
     queryKey: ["category"],
     queryFn: () => axios.get(`${API}/admin/category`).then(res => res.data),
@@ -31,7 +34,7 @@ const Navbar = () => {
 
   return (
     <div className='flex flex-col'>
-      <div className='h-20 w-full border  border-b-gray-300 bg-white '>
+      <div className='h-20 w-full border-b  border-gray-200 bg-white '>
         {/* BIGGER SCREENS */}
         <div className='flex items-center justify-between  gap-4 px-6 h-full mx-auto  '>
           {/* LEFT */}
@@ -72,33 +75,36 @@ const Navbar = () => {
                 </div>
               )}
 
-              <button className='hidden lg:flex justify-center items-center h-10 w-[100px] bg-teal-700 text-lg text-white rounded-md'>
+              <Button
+                className='hidden lg:flex justify-center items-center h-10 w-[100px] bg-teal-700 text-lg text-white rounded-md hover:bg-teal-600'
+                onClick={() => router.push("/dashboard/user/products/new")}
+              >
                 Sell New
-              </button>
+              </Button>
               <Menu data={data} />
             </div>
           </div>
         </div>
       </div>
-      <div className='h-20 w-full  border  border-b-gray-300 bg-white lg:hidden '>
+      <div className='h-20 w-full  border-b  border-gray-200 bg-white lg:hidden '>
         <div className='mx-16 mt-4 '>
           <SearchBar />
         </div>
-        <div className='hidden lg:flex h-20 w-full border  border-b-gray-300 bg-white '>
-          <div className='flex px-10  '>
-            {data?.map(category => (
-              <div
-                key={category.id}
-                className='flex items-center hover:bg-slate-100 px-6  '
-              >
-                <ul className='flex  cursor-pointer'>
-                  <li className=' capitalize text-xl text-gray-500'>
-                    {category?.name}
-                  </li>
-                </ul>
-              </div>
-            ))}
-          </div>
+      </div>
+      <div className='hidden lg:flex h-16 w-full border-b  border-gray-200 bg-white'>
+        <div className='flex justify-center '>
+          {data?.map(category => (
+            <div
+              key={category.id}
+              className='flex justify-center items-center hover:bg-slate-100 px-6 '
+            >
+              <ul className='flex  cursor-pointer'>
+                <li className=' capitalize text-xl text-gray-400'>
+                  {category?.name}
+                </li>
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </div>
