@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
       return await uploadFile(buffer, fileName);
     })
   );
-  console.log(fields);
+
   try {
     const newProduct = await prisma?.product.create({
       data: {

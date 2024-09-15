@@ -10,7 +10,6 @@ const ProductInfoPage = async ({ params }: { params: { id: string } }) => {
     productInfo = await prisma?.product.findUnique({
       where: { id: params.id },
     })!;
-    console.log(productInfo);
   } catch (error) {
     console.log("error at product info page:", error);
     productInfo = null;

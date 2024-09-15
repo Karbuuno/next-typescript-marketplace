@@ -33,7 +33,7 @@ const Navbar = () => {
   });
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col fixed z-10 w-full'>
       <div className='h-20 w-full border-b  border-gray-200 bg-white '>
         {/* BIGGER SCREENS */}
         <div className='flex items-center justify-between  gap-4 px-6 h-full mx-auto  '>

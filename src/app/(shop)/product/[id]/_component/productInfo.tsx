@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { FcApproval } from "react-icons/fc";
 import { RiShieldCheckFill } from "react-icons/ri";
+import PaymentForm from "./paymentForm";
 
 const ProductInfo = ({ productInfo }: { productInfo: Product }) => {
   const [selectedImage, setSelectedImage] = useState(productInfo?.thumbnail);
@@ -48,62 +49,13 @@ const ProductInfo = ({ productInfo }: { productInfo: Product }) => {
                 />
               </div>
             );
-
-            // For 3 images, make the first image span 2 columns and 2 rows
-
-            // <div
-            //   key={index}
-            //   className='col-span-2 row-span-2 bg-gray-300 w-full h-full'
-            //   onClick={() => setSelectedImage(index)}
-            // >
-            //   <img
-            //     src={image}
-            //     alt={productInfo.name}
-            //     className='w-full object-cover h-full'
-            //   />
-            // </div>
-
-            // <div
-            //   key={index}
-            //   className='col-span-2 bg-gray-300 w-full h-full'
-            //   onClick={() => setSelectedImage(index)}
-            // >
-            //   <img
-            //     src={image}
-            //     alt={productInfo.name}
-            //     className='w-full object-cover h-full'
-            //   />
-            // </div>
-
-            // <div
-            //   key={index}
-            //   className='col-span-2 row-span-2 bg-gray-300 w-full h-full'
-            //   onClick={() => setSelectedImage(index)}
-            // >
-            //   <img
-            //     src={image}
-            //     alt={productInfo.name}
-            //     className='w-full object-cover h-full'
-            //   />
-            // </div>
-
-            // <div
-            //   key={index}
-            //   className='bg-gray-300 w-full h-full'
-            //   onClick={() => setSelectedImage(index)}
-            // >
-            //   <img
-            //     src={image}
-            //     alt={productInfo.name}
-            //     className='w-full object-cover h-full'
-            //   />
-            // </div>
           })}
         </div>
         <div className='bg-white flex flex-col px-4'>
           <div className=' mt-4 '>
             <h1 className='text-teal-700 text-xl font-semibold'>
-              <span>£</span>8.50
+              <span>£</span>
+              {productInfo.price}
             </h1>
             <p className='flex text-teal-600'>
               Includes Buyer Protection{" "}
@@ -113,7 +65,7 @@ const ProductInfo = ({ productInfo }: { productInfo: Product }) => {
             </p>
             <div className='border-b-2 border-gray-200 mt-4' />
           </div>
-          <div className='flex gap-10 *:text-gray-400 font-semibold uppercase mt-6 justify-start border-b-2 border-gray-100'>
+          <div className='flex gap-10 *:text-gray-400 font-semibold uppercase mt-6 justify-start border-b-2 border-gray-100 py-3'>
             <div className=''>
               <div>Brand</div>
               <div> Size</div>
@@ -122,11 +74,11 @@ const ProductInfo = ({ productInfo }: { productInfo: Product }) => {
               <div>Location</div>
             </div>
             <div className=''>
-              <div>Nike</div>
-              <div>L</div>
-              <div>Very good</div>
-              <div>Black</div>
-              <div>United Kingdom</div>
+              <div>{productInfo.brand}</div>
+              <div>{productInfo.size}</div>
+              <div>{productInfo.condition}</div>
+              <div>{productInfo.color}</div>
+              <div>{productInfo.location}</div>
             </div>
           </div>
           <div className='flex flex-col mt-8 my-2 p-4 border-b-2 border-gray-100'>
@@ -135,9 +87,7 @@ const ProductInfo = ({ productInfo }: { productInfo: Product }) => {
             </div>
           </div>
           <div className='flex flex-col gap-4 mt-4'>
-            <Button className='text-xl text-white bg-teal-600  capitalize py-7 hover:bg-teal-700 '>
-              Buy New
-            </Button>
+            <PaymentForm productInfo={productInfo} />
             <Button className='w-full text-xl bg-white px-8 border border-teal-500 text-teal-700 capitalize py-7 hover:bg-gray-100'>
               make an offer
             </Button>

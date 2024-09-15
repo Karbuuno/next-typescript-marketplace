@@ -63,7 +63,7 @@ const ProductForm = ({ product }: { product?: Product }) => {
       subcategoryId: product?.subcategoryId,
       thumbnail: product?.thumbnail,
       gallery: product?.gallery,
-      price: product?.price,
+      price: Number(product?.price),
       description: product?.name,
     },
   });
