@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { FcApproval } from "react-icons/fc";
 import { RiShieldCheckFill } from "react-icons/ri";
 import PaymentForm from "./paymentForm";
+import OfferDialog from "../../../offer/_component/offerDialog";
 
 const ProductInfo = ({ productInfo }: { productInfo: Product }) => {
   const [selectedImage, setSelectedImage] = useState(productInfo?.thumbnail);
@@ -88,9 +89,7 @@ const ProductInfo = ({ productInfo }: { productInfo: Product }) => {
           </div>
           <div className='flex flex-col gap-4 mt-4'>
             <PaymentForm productInfo={productInfo} />
-            <Button className='w-full text-xl bg-white px-8 border border-teal-500 text-teal-700 capitalize py-7 hover:bg-gray-100'>
-              make an offer
-            </Button>
+            <OfferDialog productInfo={productInfo} />
             <Button className='w-full text-xl bg-white px-8 border border-teal-500 text-teal-700 capitalize py-7 hover:bg-gray-100'>
               ask seller
             </Button>

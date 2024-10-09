@@ -131,7 +131,7 @@ const LoginForm = () => {
               )}
             />
             <Button className='w-full bg-blue-500' type='submit'>
-              Sign Up
+              Login
             </Button>
           </form>
         </Form>

@@ -13,6 +13,7 @@ declare module "next-auth" {
       /** The user's role */
       role: string;
       /** The user's image */
+
       image?: string;
     } & DefaultSession["user"];
   }

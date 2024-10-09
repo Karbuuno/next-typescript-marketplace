@@ -10,7 +10,7 @@ const SuccessPage = () => {
   };
 
   return (
-    <div className='flex flex-col pt-10 items-center bg-gray-100'>
+    <div className='flex flex-col pt-16 items-center bg-gray-100'>
       <div className='bg-white p-10 rounded-lg shadow-lg max-w-md text-center'>
         <CircleCheckBig className='w-16 h-16 text-green-500 mx-auto' />
         <h1 className='text-3xl font-bold mt-4'>Payment Successful!</h1>

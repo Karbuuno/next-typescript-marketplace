@@ -19,11 +19,13 @@ import axios from "axios";
 import { API } from "@/lib/config";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import NotificationMenu from "../(shop)/offer/_component/notificationMenu";
 
 const Navbar = () => {
   const { data: session } = useSession();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const router = useRouter();
   const { data, isError, isLoading } = useQuery<Category[]>({
     queryKey: ["category"],
@@ -33,7 +35,7 @@ const Navbar = () => {
   });
 
   return (
-    <div className='flex flex-col fixed z-10 w-full'>
+    <div className='flex flex-col'>
       <div className='h-20 w-full border-b  border-gray-200 bg-white '>
         {/* BIGGER SCREENS */}
         <div className='flex items-center justify-between  gap-4 px-6 h-full mx-auto  '>
@@ -48,12 +50,20 @@ const Navbar = () => {
           <div className='hidden lg:flex items-center justify-between gap-6 '>
             <SearchBar />
           </div>
-          <div className='flex justify-between items-center '>
-            <div className='flex justify-between items-center gap-4 px-4'>
+          <div className='flex justify-between items-center  '>
+            <div className='flex justify-between items-center gap-4 px-4 '>
               {session?.user ? (
-                <div className='flex justify-between items-center gap-4 *: text-4xl *: cursor-pointer  '>
-                  <MdOutlineEmail className='text-gray-400 ' />
-                  <IoIosNotificationsOutline className='text-gray-400 ' />
+                <div className='flex justify-between items-center gap-4 *: text-4xl *: cursor-pointer relative '>
+                  <MdOutlineEmail className='text-gray-400  ' />
+                  <IoIosNotificationsOutline
+                    className='text-gray-400 '
+                    onClick={() => setIsNotificationOpen(prev => !prev)}
+                  />
+                  {isNotificationOpen && <NotificationMenu />}
+                  {/* <div className='text-gray-400 font-semibold'>
+                    <NotificationMenu />
+                  </div> */}
+
                   <MdOutlineFavoriteBorder className='text-gray-400 ' />
                   <div className='relative'>
                     <Image
