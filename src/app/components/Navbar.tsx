@@ -20,12 +20,14 @@ import { API } from "@/lib/config";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import NotificationMenu from "../(shop)/offer/_component/notificationMenu";
+// import NotificationMenu from "../(shop)/offer/_component/notificationDropDown";
+// import NotificationMenu from "../(shop)/offer/_component/notificationDropDown";
 
 const Navbar = () => {
   const { data: session } = useSession();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+
   const router = useRouter();
   const { data, isError, isLoading } = useQuery<Category[]>({
     queryKey: ["category"],
@@ -55,14 +57,9 @@ const Navbar = () => {
               {session?.user ? (
                 <div className='flex justify-between items-center gap-4 *: text-4xl *: cursor-pointer relative '>
                   <MdOutlineEmail className='text-gray-400  ' />
-                  <IoIosNotificationsOutline
-                    className='text-gray-400 '
-                    onClick={() => setIsNotificationOpen(prev => !prev)}
-                  />
-                  {isNotificationOpen && <NotificationMenu />}
-                  {/* <div className='text-gray-400 font-semibold'>
-                    <NotificationMenu />
-                  </div> */}
+                  {/* notification menu */}
+
+                  <NotificationMenu />
 
                   <MdOutlineFavoriteBorder className='text-gray-400 ' />
                   <div className='relative'>

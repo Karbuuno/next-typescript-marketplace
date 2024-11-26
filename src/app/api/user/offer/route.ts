@@ -42,21 +42,22 @@ export async function POST(request: NextRequest) {
     //     id: true,
     //   },
     // });
-    await knockClient.workflows.trigger("new-offer", {
-      actor: session?.user.id,
-      recipients: [product.sellerId as string],
-      data: {
-        productName: product.name,
-        buyerName: session?.user.name,
-        offerPrice: newOffer.price,
-      },
-    });
+    // await knockClient.workflows.trigger("new-offer", {
+    //   actor: session?.user.id,
+    //   recipients: [product.sellerId as string],
+    //   data: {
+    //     productName: product.name,
+    //     buyerName: session?.user.name,
+    //     offerPrice: newOffer.price,
+    //   },
+    // });
 
     const offer = await prisma.offer.create({
       data: {
         productId: newOffer.productId,
         buyerId: newOffer.buyerId,
         sellerId: product.sellerId,
+        name: product.name,
         price: newOffer.price,
         status: "pending",
       },
